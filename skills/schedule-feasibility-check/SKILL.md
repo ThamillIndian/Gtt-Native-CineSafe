@@ -1,3 +1,7 @@
+---
+name: schedule-feasibility-check
+description: Evaluates the logistical feasibility of the production schedule.
+---
 # Skill: Schedule Feasibility Check
 
 ## Description

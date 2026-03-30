@@ -1,3 +1,7 @@
+---
+name: scenario-simulation
+description: Provides "What-If" testing for the production against specific constraints.
+---
 # Skill: Scenario Simulation
 
 ## Description

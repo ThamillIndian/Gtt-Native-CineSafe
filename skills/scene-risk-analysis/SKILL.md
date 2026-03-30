@@ -1,3 +1,7 @@
+---
+name: scene-risk-analysis
+description: Analyzes individual scenes for production risks and safety hazards.
+---
 # Skill: Scene Risk Analysis
 
 ## Description

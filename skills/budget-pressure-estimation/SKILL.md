@@ -1,3 +1,7 @@
+---
+name: budget-pressure-estimation
+description: Estimates the financial strain of each scene based on production complexity.
+---
 # Skill: Budget Pressure Estimation
 
 ## Description
