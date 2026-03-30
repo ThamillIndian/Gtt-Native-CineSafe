@@ -1,0 +1,19 @@
+[CineSafe Optimized Example - Shooting Script with Decimals]
+
+1.INT. COMMAND CENTER - NIGHT
+STUNT: A massive explosion rocks the building!
+
+2.EXT. CITY STREETS - CONTINUOUS
+TRAFFIC is at a standstill.
+
+4.1 VARIOUS LOCATIONS
+The villagers are running into their houses.
+The animals are also visibly scared.
+
+4.2 INT. SCARY HOUSE - NIGHT
+The scary lady stops the alarm.
+
+4.3 EXT. SCARY HOUSE - NIGHT
+Dark, silent, and eerie street.
+
+[End of Example]

@@ -1,0 +1,16 @@
+# Environments
+.env
+venv/
+__pycache__/
+*.pyc
+
+# Local data/outputs
+outputs/
+*.log
+
+# Streamlit
+.streamlit/
+
+# OS
+.DS_Store
+Thumbs.db

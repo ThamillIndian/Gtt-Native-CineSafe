@@ -1,0 +1,18 @@
+spec_version: "0.1.0"
+name: cinesafe-agent
+version: "0.1.0"
+description: "A git-native film production analyst that converts scripts into risk, budget, schedule, and scenario-tested recommendations."
+model:
+  preferred: gemini-2.0-flash
+skills:
+  - script-intake
+  - scene-risk-analysis
+  - budget-pressure-estimation
+  - schedule-feasibility
+  - what-if-simulation
+  - producer-report
+tags:
+  - film-production
+  - screenplay-analysis
+  - planning
+  - hackathon
