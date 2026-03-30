@@ -49,6 +49,8 @@ streamlit run ui/streamlit_app.py
 npx @open-gitagent/gitagent validate
 ```
 
+> **Note**: `gitclaw info` requires Node.js ≥ 20.18.1. The repository is fully GitAgent-spec compliant. If you encounter a version mismatch error, upgrade Node.js or use `npx @open-gitagent/gitagent info` as an alternative.
+
 ## 📂 Project Structure
 - `runtime/`: The core engine and modular adapters.
 - `skills/`: Mandatory skill documentation for GitClaw.
