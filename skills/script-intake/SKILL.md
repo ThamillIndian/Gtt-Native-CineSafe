@@ -1,3 +1,7 @@
+---
+name: Script Intake
+description: Parses raw screenplay text files into structured Python objects.
+---
 # Skill: Script Intake
 
 ## Description
