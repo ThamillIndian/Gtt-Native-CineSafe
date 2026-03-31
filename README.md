@@ -103,4 +103,4 @@ npx @open-gitagent/gitagent validate
 - `examples/`: Sample scripts and templates.
 
 ---
-Built with ❤️ for the **GitAgent Hackathon** by **ThamillIndian**.
+Built for the **GitAgent Hackathon** by **ThamillIndian**.
