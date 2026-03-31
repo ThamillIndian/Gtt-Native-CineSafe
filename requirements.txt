@@ -5,3 +5,4 @@ pydantic
 pandas
 pytest
 pypdf
+reportlab>=4.0.7,<5.0.0

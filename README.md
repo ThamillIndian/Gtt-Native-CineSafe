@@ -30,8 +30,23 @@ CineSafe Agent is a specialized AI production analyst designed for the **GitAgen
   - `accelerate_timeline` — Tests a compressed shooting schedule
   - `max_safety` — Maximum safety constraints applied
 - **📊 Interactive Dashboard**: A sleek **Streamlit** interface with Markdown Report, Intermediate Data, Production Logs, and Download tabs.
+- **📄 PDF Export**: Download the full production analysis report as a professionally formatted **PDF** with one click.
 - **📜 Deep Debugging**: Granular production logs for every internal step, from regex parsing to LLM reasoning.
 - **🤖 Powered by Gemini 2.5 Flash**: Optimized for speed and sophisticated creative reasoning.
+
+---
+
+## 🧠 Agent Skills
+
+CineSafe exposes **5 specialized skills**, each documented in `skills/` per the GitAgent standard:
+
+| Skill | Description |
+|---|---|
+| `script-intake` | Parses `.txt` and `.pdf` screenplays into structured scene objects, with support for decimal numbering (4.1, 4.2) |
+| `scene-risk-analysis` | Scores scenes across 5 pillars (Safety, Logistics, Schedule, Budget, Compliance) using CSV-grounded heuristics + LLM explanation |
+| `budget-pressure-estimation` | Detects high-cost scene factors and classifies budget pressure as Low / Moderate / High / Extreme |
+| `schedule-feasibility-check` | Identifies clustering opportunities, company move pressure, and night-to-day turnaround risks |
+| `scenario-simulation` | Stress-tests the production against 4 presets: `standard`, `budget_cut_20`, `accelerate_timeline`, `max_safety` |
 
 ---
 

@@ -1,7 +1,16 @@
 import streamlit as st
 import os
 import sys
+import io
+import re
+import datetime
 import PyPDF2
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import mm
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
+from reportlab.lib.enums import TA_LEFT, TA_CENTER
 
 # Add the parent directory to sys.path to allow importing the 'runtime' package
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -122,11 +131,73 @@ if 'report' in st.session_state:
         st.text_area("Execution Details", log_text, height=400)
         
     with tab4:
+        st.markdown("### 📄 Download Production Report as PDF")
+        
+        def generate_pdf(report_text, scene_count, avg_risk, scenario_preset):
+            buffer = io.BytesIO()
+            doc = SimpleDocTemplate(buffer, pagesize=A4,
+                                    rightMargin=20*mm, leftMargin=20*mm,
+                                    topMargin=20*mm, bottomMargin=20*mm)
+            styles = getSampleStyleSheet()
+            story = []
+
+            # Title
+            title_style = ParagraphStyle('Title', parent=styles['Title'],
+                                         fontSize=22, textColor=colors.HexColor('#e74c3c'),
+                                         spaceAfter=6)
+            story.append(Paragraph("🎬 CineSafe Production Report", title_style))
+            story.append(Paragraph(f"Generated: {datetime.datetime.now().strftime('%B %d, %Y %H:%M')}",
+                                   styles['Normal']))
+            story.append(Spacer(1, 5*mm))
+            story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#e74c3c')))
+            story.append(Spacer(1, 5*mm))
+
+            # Key Metrics
+            metrics_style = ParagraphStyle('Metrics', parent=styles['Normal'],
+                                           fontSize=11, spaceAfter=4)
+            story.append(Paragraph(f"<b>Total Scenes:</b> {scene_count}", metrics_style))
+            story.append(Paragraph(f"<b>Average Risk:</b> {avg_risk:.1f}/10", metrics_style))
+            story.append(Paragraph(f"<b>Scenario Preset:</b> {scenario_preset.replace('_', ' ').title()}", metrics_style))
+            story.append(Spacer(1, 5*mm))
+            story.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+            story.append(Spacer(1, 5*mm))
+
+            # Report Body - parse markdown to paragraphs
+            body_style = ParagraphStyle('Body', parent=styles['Normal'], fontSize=9, spaceAfter=3)
+            heading1_style = ParagraphStyle('H1', parent=styles['Heading1'], fontSize=14, spaceAfter=4)
+            heading2_style = ParagraphStyle('H2', parent=styles['Heading2'], fontSize=11, spaceAfter=3)
+
+            for line in report_text.split('\n'):
+                line = line.strip()
+                if not line:
+                    story.append(Spacer(1, 2*mm))
+                elif line.startswith('## '):
+                    story.append(Paragraph(line[3:], heading1_style))
+                elif line.startswith('### '):
+                    story.append(Paragraph(line[4:], heading2_style))
+                elif line.startswith('**') and line.endswith('**'):
+                    story.append(Paragraph(f"<b>{line[2:-2]}</b>", body_style))
+                elif line.startswith('- '):
+                    # Strip markdown bold/italic for bullets
+                    clean = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', line[2:])
+                    story.append(Paragraph(f"• {clean}", body_style))
+                else:
+                    clean = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', line)
+                    if clean:
+                        story.append(Paragraph(clean, body_style))
+
+            doc.build(story)
+            buffer.seek(0)
+            return buffer
+
+        avg_risk_val = sum(r.overall_risk_score for r in report.top_risks) / len(report.top_risks) if report.top_risks else 0
+        pdf_buffer = generate_pdf(report.markdown, report.scene_count, avg_risk_val, scenario)
+
         st.download_button(
-            label="Download Full Report (Markdown)",
-            data=report.markdown,
-            file_name="cinesafe_production_report.md",
-            mime="text/markdown",
+            label="⬇️ Download Full Report (PDF)",
+            data=pdf_buffer,
+            file_name="cinesafe_production_report.pdf",
+            mime="application/pdf",
             use_container_width=True
         )
 else:
